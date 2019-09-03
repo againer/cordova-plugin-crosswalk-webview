@@ -119,9 +119,14 @@ cdvPluginPostBuildExtras.add({
         
       flavorDimensions "default"
       productFlavors {
-        all {
+        thirtytwo {
             ndk {
-              abiFilters "all", ""
+              abiFilters "armeabi-v7a", "x86", ""
+            }
+        }
+        sixtyfour {
+            ndk {
+              abiFilters "arm64-v8a", "x86_64", ""
             }
         }
       }
@@ -153,7 +158,8 @@ cdvPluginPostBuildExtras.add({
     println xwalkSpec
 
     dependencies {
-        implementation xwalkSpec
+        thirtytwoImplementation xwalkSpec
+        sixtyfourImplementation xwalk64Spec
     }
 
     if (file('assets/xwalk-command-line').exists()) {
