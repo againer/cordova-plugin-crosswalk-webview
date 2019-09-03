@@ -171,7 +171,7 @@ cdvPluginPostBuildExtras.add({
         xwalkSpec = DEFAULT_GROUP_ID + artifactid + xwalkSpec
     }
     
-    xwalk64Spec = xwalkSpec + BIT_64
+    def xwalk64Spec = xwalkSpec + BIT_64
     println xwalkSpec
 
     dependencies {
