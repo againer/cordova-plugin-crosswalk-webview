@@ -57,10 +57,6 @@ def getConfigPreference(name) {
     return ret ? ret : defaultValue
 }
 
-if (!project.hasProperty('xwalk64bit')) {
-    ext.xwalk64bit = getConfigPreference("xwalk64bit");
-    println xwalk64bit
-}
 if (cdvBuildMultipleApks == null) {
     ext.xwalkMultipleApk = getConfigPreference("xwalkMultipleApk").toBoolean();
 } else {
@@ -78,15 +74,7 @@ if (!project.hasProperty('xwalkMode')) {
     ext.xwalkMode = getConfigPreference("xwalkMode");
 }
 
-
-if (ext.xwalkMode == SHARED_MODE) {
-    // Build one apk at shared mode because the value of
-    // ext.cdvBuildMultipleApks is false by default.
-    xwalk64bit = null;
-} else if (xwalk64bit == null) {
-    // Build embedded 32 bit crosswalk will generate two apks by default.
-    ext.cdvBuildMultipleApks = xwalkMultipleApk;
-}
+ext.cdvBuildMultipleApks = true
 
 // Set defaults before project's build-extras.gradle
 if (!project.hasProperty('xwalkVersion')) {
@@ -114,21 +102,25 @@ cdvPluginPostBuildExtras.add({
     }
 
     android {
-        if (xwalk64bit != null) {
-            productFlavors {
-                x86_64 {
-                    versionCode defaultConfig.versionCode + 6
-                    ndk {
-                       abiFilters "x86_64", ""
-                    }
-                }
-                arm64 {
-                    versionCode defaultConfig.versionCode + 9
-                    ndk {
-                        abiFilters "arm64-v8a", ""
-                    }
-                }
+      flavorDimensions "default"
+      productFlavors {
+        x86_64 {
+          versionCode defaultConfig.versionCode + 6
+          ndk {
+            abiFilters "x86_64", ""
+          }
+        }
+        arm64 {
+          versionCode defaultConfig.versionCode + 9
+            ndk {
+              abiFilters "arm64-v8a", ""
             }
+          }
+        }
+        all {
+          ndk {
+            abiFilters "all", ""
+          }
         }
     }
 
@@ -152,13 +144,12 @@ cdvPluginPostBuildExtras.add({
         }
         xwalkSpec = DEFAULT_GROUP_ID + artifactid + xwalkSpec
     }
-    if (xwalk64bit != null) {
-        xwalkSpec = xwalkSpec + BIT_64
-    }
+    
+    xwalk64Spec = xwalkSpec + BIT_64
     println xwalkSpec
 
     dependencies {
-        implementation xwalkSpec
+        implementation xwalk64Spec
     }
 
     if (file('assets/xwalk-command-line').exists()) {
