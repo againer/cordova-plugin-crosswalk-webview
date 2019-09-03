@@ -153,7 +153,6 @@ cdvPluginPostBuildExtras.add({
     println xwalkSpec
 
     dependencies {
-        implementation xwalk64Spec
         implementation xwalkSpec
     }
 
