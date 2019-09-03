@@ -9,7 +9,7 @@
     <description>Changes the default WebView to CrossWalk</description>
     <license>Apache 2.0</license>
     <keywords>cordova,chromium,crosswalk,webview</keywords>
-    <repo>https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview</repo>
+    <repo>https://github.com/againer/cordova-plugin-crosswalk-webview</repo>
     <issue>https://crosswalk-project.org/jira</issue>
 
     <engines>
