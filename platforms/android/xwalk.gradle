@@ -170,12 +170,12 @@ cdvPluginPostBuildExtras.add({
         }
         xwalkSpec = DEFAULT_GROUP_ID + artifactid + xwalkSpec
     }
-    if (xwalk64bit != null) {
-        xwalkSpec = xwalkSpec + BIT_64
-    }
+    
+    xwalk64Spec = walkSpec + BIT_64
     println xwalkSpec
 
     dependencies {
+        implementation xwalk64Spec
         implementation xwalkSpec
     }
 
