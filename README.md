@@ -9,6 +9,9 @@ instead of the System WebView. Requires cordova-android 4.0 or greater.
 * Capabilities: such as WebRTC, WebAudio, Web Components
 * Performance improvements (compared to older system webviews)
 
+### Notable Fork Changes
+
+* Builds produce both 32-bit and 64-bit apks for ARM and x86.
 
 ### Drawbacks
 
